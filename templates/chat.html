@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Chat with PDF</h2>
+    <div id="chatInterface">
+        <h3>Chat</h3>
+        <form id="chatForm">
+            <label for="query">Your Query:</label>
+            <input type="text" id="query" name="query" required>
+            <button type="submit">Ask</button>
+        </form>
+        <div id="response"></div>
+    </div>
+    
+    <script>
+        document.getElementById('chatForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const query = document.getElementById('query').value;
+            const responseDiv = document.getElementById('response');
+            
+            const res = await fetch("{{ url_for('query_pdf') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query })
+            });
+            const data = await res.json();
+            responseDiv.innerHTML += `<p>Q: ${query}</p><p>A: ${data.answer}</p>`;
+            document.getElementById('query').value = '';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Welcome to PDF Chatbot</h2>
+    <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('signup') }}">Signup</a>
+</body>
+</html>
